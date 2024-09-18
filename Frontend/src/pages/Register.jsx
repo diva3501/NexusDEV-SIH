@@ -4,7 +4,6 @@ import { useState } from "react";
 import axios from "axios";
 import Select from "react-select";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import Loader from "../Components/Loader";
 
@@ -48,7 +47,6 @@ function Register() {
       role: selectedOption.value,
     }));
   };
-  
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -56,7 +54,7 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+    
     if (loading) return;  // Prevent multiple submissions
     
     setLoading(true);
@@ -67,10 +65,19 @@ function Register() {
         formData
       );
       
-      // Reset form data only if registration is successful
       if (response.data.status === "success") {
-        toast.success("Registration successful!");
-        navigate("/login");
+        const registeredEmail = formData.email;
+        
+        // Store the registered email in session storage
+        sessionStorage.setItem("userEmail", registeredEmail);
+        
+        toast.success("Registration successful! Logging you in...");
+        
+        // Auto-login the user
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000); // Delay to allow user to see success message
+        
       } else {
         toast.error("Registration failed. Please try again.");
       }
@@ -80,7 +87,6 @@ function Register() {
       setLoading(false);  // Reset loading state
     }
   };
-  
 
   return (
     <>
@@ -224,7 +230,7 @@ function Register() {
               />
             </div>
             <div>
-              <label htmlFor="degree" className="sr-only">
+              <label htmlFor="role" className="sr-only">
                 Role
               </label>
               <Select
@@ -244,13 +250,7 @@ function Register() {
               disabled={loading}
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-black-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              {/* <AcademicCapIcon
-                className="h-5 w-5 text-white group-hover:text-indigo-400"
-                aria-hidden="true"
-              /> */}
-              {loading ?<Loader text="Please Wait"/> : "Register"
-                }
-              
+              {loading ? <Loader /> : "Register"}
             </button>
           </div>
         </form>

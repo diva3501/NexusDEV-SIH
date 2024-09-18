@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaDonate, FaInfoCircle } from 'react-icons/fa';
 import { getLoggedIn } from '../services/authService';
 import { Link } from 'react-router-dom';
+import './DonationSchemes.css';
 
 const schemes = [ 
   {

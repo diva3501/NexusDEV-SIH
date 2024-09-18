@@ -41,10 +41,10 @@ function Topbar() {
             </Link>
           </>
         )}
-
-        <Link to="/events" className="text-lg flex items-center hover:text-blue-500 transition-colors">
-          <FaCalendar className="mr-2 text-xl" /> Events
+      <Link to="/donation" className="text-lg flex items-center hover:text-blue-500 transition-colors">
+          <FaEnvelopeOpenText className="mr-2 text-xl" /> Donation
         </Link>
+        
         <Link to="/jobs" className="text-lg flex items-center hover:text-blue-500 transition-colors">
           <FaBriefcase className="mr-2 text-xl" /> Jobs
         </Link>
@@ -52,15 +52,13 @@ function Topbar() {
         <Link to="/meeting" className="text-lg flex items-center hover:text-blue-500 transition-colors">
           <FaVideo className="mr-2 text-xl" /> Meeting
         </Link>
-        <Link to="/bulk-upload" className="text-lg flex items-center hover:text-blue-500 transition-colors">
-          <FaUpload className="mr-2 text-xl" /> Bulk Import
+        <Link to="/events" className="text-lg flex items-center hover:text-blue-500 transition-colors">
+          <FaCalendar className="mr-2 text-xl" /> Events
         </Link>
         <Link to="/search-people" className="text-lg flex items-center hover:text-blue-500 transition-colors">
           <FaSearch className="mr-2 text-xl" /> Search Alumni
         </Link>
-        <Link to="/send-mail" className="text-lg flex items-center hover:text-blue-500 transition-colors">
-          <FaEnvelopeOpenText className="mr-2 text-xl" /> Donation
-        </Link>
+        
 
         {loggedIn ? (
           <NavLink

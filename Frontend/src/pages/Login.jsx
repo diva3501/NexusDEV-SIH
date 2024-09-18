@@ -2,10 +2,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
 import Select from "react-select";
 import { ToastContainer, toast } from "react-toastify";
-import axios from "axios";
+import { useDispatch } from "react-redux";
 import { login } from "../features/authSlice";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import Loader from "../Components/Loader";
 
 function Login() {
@@ -19,6 +18,13 @@ function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Allowed credentials for testing
+  const allowedCredentials = {
+    email: "TechForage@gmail.com",
+    password: "teahforage@123",
+  };
+
+  // Role options for the select dropdown
   const roleOptions = [
     { value: "alumni", label: "Alumni" },
     { value: "faculty", label: "Faculty" },
@@ -41,48 +47,67 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!selectedRole) {
       toast.error("Please select a role");
       return;
     }
-  
-    setLoading(true);
-    const url = "http://localhost:8080/auth/login";
-    try {
-      const response = await axios.post(url, user);
-      const payload = {
-        user: response.data.user,
-        role: selectedRole.value,
-      };
-  
-      dispatch(login(payload));
-      toast.success("Login Successful");
-      navigate("/home");
-    } catch (err) {
-      console.error("Login error:", err);
-      if (err.response) {
-        toast.error(err.response.data.message || err.message);
-      } else {
-        toast.error("Something went wrong!");
-      }
-    } finally {
-      setLoading(false);
+
+    // Validate credentials
+    if (
+      user.email !== allowedCredentials.email ||
+      user.password !== allowedCredentials.password
+    ) {
+      toast.error("Invalid email or password");
+      return;
     }
+
+    setLoading(true);
+
+    setTimeout(() => {
+      try {
+        const response = {
+          data: {
+            user: {
+              email: user.email,
+              role: selectedRole.value,
+            },
+          },
+        };
+
+        const payload = {
+          user: response.data.user,
+          role: selectedRole.value,
+        };
+
+        dispatch(login(payload));
+        toast.success("Login Successful");
+        navigate("/home");
+      } catch (err) {
+        console.error("Login error:", err);
+        toast.error("Something went wrong!");
+      } finally {
+        setLoading(false);
+      }
+    }, 1000);
   };
-  
 
   return (
     <>
       <ToastContainer />
       <div className="flex flex-col items-center mb-28 py-2">
         <div className="flex flex-col justify-center items-center">
-          <h2 className="mt-5 text-center text-gray-900">Sign in to your account</h2>
+          <h2 className="mt-5 text-center text-gray-900 text-2xl font-bold">
+            Sign in to your account
+          </h2>
         </div>
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6 w-full max-w-md">
           <input type="hidden" name="remember" defaultValue="true" />
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
-              <label htmlFor="email-address" className="sr-only">Email address</label>
+              <label htmlFor="email-address" className="sr-only">
+                Email address
+              </label>
               <input
                 id="email-address"
                 name="email"
@@ -96,7 +121,9 @@ function Login() {
               />
             </div>
             <div>
-              <label htmlFor="password" className="sr-only">Password</label>
+              <label htmlFor="password" className="sr-only">
+                Password
+              </label>
               <input
                 id="password"
                 name="password"
@@ -110,7 +137,9 @@ function Login() {
               />
             </div>
             <div>
-              <label htmlFor="role" className="sr-only">Role</label>
+              <label htmlFor="role" className="sr-only">
+                Role
+              </label>
               <Select
                 id="role"
                 name="role"
@@ -132,6 +161,22 @@ function Login() {
             </button>
           </div>
         </form>
+        <div className="mt-8 text-center text-gray-700">
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">
+            Testing Credentials
+          </h3>
+          <p className="text-sm text-gray-600 mb-4">
+            For testing purposes, you can use the following credentials:
+          </p>
+          <div className="bg-blue-50 p-4 rounded-md shadow-md border border-blue-200">
+            <p className="text-sm font-semibold text-blue-700">
+              Email: <span className="font-normal">TechForage@gmail.com</span>
+            </p>
+            <p className="text-sm font-semibold text-blue-700">
+              Password: <span className="font-normal">teahforage@123</span>
+            </p>
+          </div>
+        </div>
       </div>
     </>
   );

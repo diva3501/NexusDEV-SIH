@@ -1,106 +1,101 @@
 import React from 'react';
-import './Home.css';
+import graduationIllustration from '../assets/img/graduation_illustration.svg';
+import connectingTeamsIllustration from '../assets/img/connecting_teams.svg';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserGraduate, faBriefcase, faHandshake } from '@fortawesome/free-solid-svg-icons';
-import Lottie from "react-lottie";
-import animationData from "../assets/lottie/innovation-animation.json"; 
+import { faUserGraduate, faHandshake, faBriefcase, faChartLine } from '@fortawesome/free-solid-svg-icons';
+import './Home.css'; // Import the custom CSS file for additional styling
+import { motion } from 'framer-motion'; // Animation library
+
 function Home() {
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-  
-
   return (
-    <div className="home-container">
+    <div className="container-fluid p-0">
       {/* Hero Section */}
-      <section className="hero position-relative d-flex align-items-center">
-        <div className="container text-center text-white hero-content">
-          <img src="/assets/1.jpg" alt="Alumni Connection" className="alumni-hero-image img-fluid rounded" />
-          <h1 className="display-4 font-weight-bold hero-title">Welcome to NexusDEV</h1>
-          <p className="lead mb-4">Connect. Innovate. Grow. Build lasting alumni connections and accelerate your career.</p>
-          <a href="#" className="btn btn-explore mt-3 px-5 py-3">Explore Now</a>
+      <header className="hero-section position-relative overflow-hidden d-flex justify-content-center align-items-center">
+        <div className="bg-hero-animation"></div>
+        <div className="container text-center text-white hero-text">
+          <motion.h1
+            className="display-3 font-weight-bold hero-heading"
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+          >
+            Welcome to <span className="text-highlight">NexusDEV</span>
+          </motion.h1>
+          <motion.p
+            className="lead mt-4"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 1 }}
+          >
+            Fostering growth and collaboration between students, alumni, and institutions.
+          </motion.p>
+          <motion.a
+            href="#"
+            className="btn btn-warning btn-lg mt-4 px-5 py-3 explore-btn"
+            whileHover={{ scale: 1.05, textShadow: "0px 0px 8px rgba(255, 255, 255, 1)" }}
+            transition={{ duration: 0.3 }}
+          >
+            Get Started
+          </motion.a>
         </div>
-        <img src="/assets/alumniconnect.svg" alt="Alumni Connect" className="alumni-connect-svg position-absolute" />
-      </section>
+      </header>
 
-      <section className="features-section py-5">
-        <div className="container text-center">
-          <h3 className="font-weight-bold mb-5">How NexusDEV Can Help You</h3>
-          <div className="row">
-            <div className="col-md-4 mb-4">
-              <div className="card feature-card shadow h-100">
-                <FontAwesomeIcon icon={faUserGraduate} size="4x" className="text-primary mb-3" />
-                <h5 className="font-weight-bold">For Students</h5>
-                <p className="text-muted">Discover internships, mentorships, and exclusive learning opportunities to fuel your growth.</p>
-                <a href="#" className="btn btn-primary mt-3">Explore</a>
+      {/* Main Content */}
+      <main className="container py-5">
+        <div className="row align-items-center mb-5">
+          {/* Content Section */}
+          <div className="col-lg-6 mb-4">
+            <h2 className="font-weight-bold mb-4">Your Gateway to Success</h2>
+            <p className="text-muted mb-4">
+              NexusDEV bridges the gap between students, alumni, and institutions by offering mentorship, job opportunities, and collaborative projects. 
+              Explore our platform to find mentors, discover job openings, and participate in meaningful projects.
+            </p>
+            <a href="#" className="btn btn-primary btn-lg px-4 py-2 mt-5">Explore Now</a>
+          </div>
+
+          {/* Illustration Section */}
+          <div className="col-lg-6 text-center">
+            <img src={graduationIllustration} alt="Graduation Illustration" className="img-fluid rounded shadow-lg" />
+          </div>
+        </div>
+
+        {/* Sections for Current Students, Alumni, and Institution */}
+        <div className="row mb-5">
+          <div className="col-lg-4 mb-4">
+            <div className="card card-custom shadow-sm border-0 hover-shadow">
+              <div className="card-body text-center">
+                <FontAwesomeIcon icon={faUserGraduate} size="3x" className="text-primary mb-3" />
+                <h5 className="card-title">For Students</h5>
+                <p className="card-text">Access mentorship, job portals, collaborative projects, and networking opportunities tailored for you.</p>
+                <a href="#" className="btn btn-outline-primary mt-5">Learn More</a>
               </div>
             </div>
+          </div>
 
-            <div className="col-md-4 mb-4">
-              <div className="card feature-card shadow h-100">
-                <FontAwesomeIcon icon={faHandshake} size="4x" className="text-success mb-3" />
-                <h5 className="font-weight-bold">For Alumni</h5>
-                <p className="text-muted">Reconnect with your alma mater, mentor students, and stay involved with the latest developments.</p>
-                <a href="#" className="btn btn-success mt-3">Get Involved</a>
+          <div className="col-lg-4 mb-4">
+            <div className="card card-custom shadow-sm border-0 hover-shadow">
+              <div className="card-body text-center">
+                <FontAwesomeIcon icon={faHandshake} size="3x" className="text-primary mb-3" />
+                <h5 className="card-title">For Alumni</h5>
+                <p className="card-text">Stay engaged by mentoring students, posting job opportunities, and sharing your success stories.</p>
+                <a href="#" className="btn btn-outline-primary mt-5">Discover More</a>
               </div>
             </div>
+          </div>
 
-            <div className="col-md-4 mb-4">
-              <div className="card feature-card shadow h-100">
-                <FontAwesomeIcon icon={faBriefcase} size="4x" className="text-warning mb-3" />
-                <h5 className="font-weight-bold">For Institutions</h5>
-                <p className="text-muted">Manage alumni relations, enhance institutional networks, and improve career support.</p>
-                <a href="#" className="btn btn-warning mt-3">Engage Now</a>
+          <div className="col-lg-4 mb-4">
+            <div className="card card-custom shadow-sm border-0 hover-shadow">
+              <div className="card-body text-center">
+                <FontAwesomeIcon icon={faBriefcase} size="3x" className="text-primary mb-3" />
+                <h5 className="card-title">For Institutions</h5>
+                <p className="card-text">Manage engagement, track donations, and host events to enhance alumni relations.</p>
+                <a href="#" className="btn btn-outline-primary mt-5">Find Out More</a>
               </div>
             </div>
           </div>
         </div>
-      </section>
-
-      <section className="success-stories py-5 bg-light">
-        <div className="container text-center">
-          <h3 className="font-weight-bold mb-5">Alumni Success Stories</h3>
-          <div className="row">
-            <div className="col-md-4 mb-4">
-              <div className="story-card shadow p-4">
-                <img src="/assets/success1.jpg" alt="Alumni Success 1" className="story-image img-fluid rounded" />
-                <h5 className="font-weight-bold mt-3">John Doe</h5>
-                <p className="text-muted">From student to CEO – how NexusDEV shaped my journey to success.</p>
-                <a href="#" className="btn btn-outline-primary mt-3">Read More</a>
-              </div>
-            </div>
-            <div className="col-md-4 mb-4">
-              <div className="story-card shadow p-4">
-                <img src="/assets/success2.jpg" alt="Alumni Success 2" className="story-image img-fluid rounded" />
-                <h5 className="font-weight-bold mt-3">Jane Smith</h5>
-                <p className="text-muted">Building a startup with the help of NexusDEV alumni connections.</p>
-                <a href="#" className="btn btn-outline-success mt-3">Read More</a>
-              </div>
-            </div>
-            <div className="col-md-4 mb-4">
-              <div className="story-card shadow p-4">
-                <img src="/assets/success3.jpg" alt="Alumni Success 3" className="story-image img-fluid rounded" />
-                <h5 className="font-weight-bold mt-3">Mark Johnson</h5>
-                <p className="text-muted">Turning innovative ideas into real-world solutions with NexusDEV.</p>
-                <a href="#" className="btn btn-outline-warning mt-3">Read More</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="cta-section py-5 text-white">
-        <div className="container text-center">
-          <h3 className="font-weight-bold mb-3">Ready to Make a Difference?</h3>
-          <p className="lead mb-4">Join NexusDEV today and become part of an innovative, connected, and thriving community.</p>
-          <a href="#" className="btn btn-light btn-lg px-5 py-3">Join Now</a>
-        </div>
-      </section>
+      </main>
     </div>
   );
 }

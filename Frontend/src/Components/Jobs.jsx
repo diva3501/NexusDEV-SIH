@@ -191,20 +191,22 @@ function Jobs() {
             </div>
           )}
 
-          {/* Search and Filter */}
-          <section className="mb-8">
-            <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4">
+          {/* Job Listings */}
+          <section className="bg-white p-8 rounded-lg shadow-lg">
+            <h2 className="text-2xl h4 mb-8 text-center text-gray-800">Available Jobs</h2>
+            {/* Search and Filter */}
+            <div className="flex flex-col md:flex-row md:justify-between mb-8">
               <input
                 type="text"
-                placeholder="Search jobs..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full md:w-2/3 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                placeholder="Search jobs"
+                className="w-full md:w-1/3 px-4 py-2 border border-gray-300 rounded-lg shadow-sm mb-4 md:mb-0"
               />
               <select
                 value={categoryFilter}
                 onChange={(e) => setCategoryFilter(e.target.value)}
-                className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                className="w-full md:w-1/4 px-4 py-2 border border-gray-300 rounded-lg shadow-sm"
               >
                 <option value="All">All Job Types</option>
                 <option value="Full-time">Full-time</option>
@@ -213,25 +215,26 @@ function Jobs() {
                 <option value="Internship">Internship</option>
               </select>
             </div>
-          </section>
-
-          {/* Jobs List */}
-          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredJobs.length > 0 ? (
-              filteredJobs.map((job, index) => (
-                <div key={index} className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
-                  <h2 className="text-xl font-bold text-gray-800">{job.title}</h2>
-                  <p className="text-gray-600">{job.company} - {job.location}</p>
-                  <p className="text-sm text-gray-500 mt-2">{job.jobType} | {job.salary ? `$${job.salary}` : 'Salary not provided'}</p>
-                  <p className="text-gray-700 mt-4">{job.description}</p>
-                  <p className="mt-4 text-sm text-indigo-600">Requirements: {job.requirements}</p>
-                  <p className="mt-2 text-sm text-gray-500">Role: {job.role}</p>
-                  <p className="mt-2 text-sm text-gray-500">Contact: {job.contactEmail}</p>
-                </div>
-              ))
-            ) : (
-              <p className="text-gray-500 col-span-full text-center">No jobs found matching your criteria.</p>
-            )}
+            {/* Job Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredJobs.length > 0 ? (
+                filteredJobs.map((job, index) => (
+                  <div key={index} className="bg-white p-6 rounded-lg shadow-md">
+                    <h3 className="text-xl font-semibold mb-2">{job.title}</h3>
+                    <p className="text-gray-700 mb-2"><strong>Company:</strong> {job.company}</p>
+                    <p className="text-gray-700 mb-2"><strong>Location:</strong> {job.location}</p>
+                    <p className="text-gray-700 mb-2"><strong>Salary:</strong> {job.salary}</p>
+                    <p className="text-gray-700 mb-2"><strong>Role:</strong> {job.role}</p>
+                    <p className="text-gray-700 mb-2"><strong>Description:</strong> {job.description}</p>
+                    <p className="text-gray-700 mb-2"><strong>Requirements:</strong> {job.requirements}</p>
+                    <p className="text-gray-700 mb-2"><strong>Contact:</strong> {job.contactEmail}</p>
+                    <p className="text-gray-700 mb-2"><strong>Job Type:</strong> {job.jobType}</p>
+                  </div>
+                ))
+              ) : (
+                <p className="text-center text-gray-700">No jobs available</p>
+              )}
+            </div>
           </section>
         </div>
       ) : (

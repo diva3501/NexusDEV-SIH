@@ -1,64 +1,252 @@
-.home-container {
+.card-custom {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card-custom:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card-body {
+    padding: 2rem;
+  }
+  
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  
+  .card-text {
+    font-size: 1rem;
+    color: #6c757d;
+  }
+  
+  .btn-outline-primary {
+    border-color: #007bff;
+    color: #007bff;
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: #007bff;
+    color: #fff;
+  }
+
+
+  /* Hero Section Styling */
+.hero-section {
+  background: url('../assets/img/hero-bg.jpg') center center/cover no-repeat;
+  position: relative;
+  padding: 100px 0;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+}
+
+.hero-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Card Customization */
+.card-custom {
+  border-radius: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-custom:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Buttons */
+.btn-outline-primary {
+  border-width: 2px;
+}
+
+.btn-outline-primary:hover {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+/* Additional Features */
+.text-muted {
+  color: #6c757d !important;
+}
+
+.font-weight-bold {
+  font-weight: 700 !important;
+}
+
+.hover-shadow {
+  transition: box-shadow 0.3s ease;
+}
+
+.hover-shadow:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* General Styles */
+body {
   background-color: #f8f9fa;
 }
-
-.hero {
-  background: linear-gradient(120deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
-  padding: 120px 0;
+/* Hero Section Background Animation */
+.hero-section {
+  height: 100vh;
+  background: linear-gradient(135deg, #007bff, #6610f2);
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   overflow: hidden;
+  color: white;
+  font-family: 'Roboto', sans-serif;
 }
 
-.hero-title {
-  animation: fadeInDown 1.2s ease-in-out;
+.bg-hero-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.01));
+  animation: gradientSpin 20s linear infinite;
 }
 
-.alumni-connect-svg {
-  bottom: 20px;
-  right: 20px;
-  width: 150px;
-  height: auto;
-  animation: fadeInUp 1.5s ease-in-out;
+@keyframes gradientSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-@keyframes fadeInDown {
-  0% { transform: translateY(-50px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
+/* Hero Text */
+.hero-heading {
+  font-size: 4rem;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+  background: -webkit-linear-gradient(45deg, #ffdf00, #ff6347);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: transform 0.4s ease;
 }
 
-@keyframes fadeInUp {
-  0% { transform: translateY(50px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
-}
-
-.feature-card {
-  transition: transform 0.3s ease-in-out;
-}
-
-.feature-card:hover {
-  transform: scale(1.05);
-}
-
-.story-image {
-  transition: transform 0.3s ease-in-out;
-}
-
-.story-image:hover {
+.hero-heading:hover {
   transform: scale(1.1);
 }
 
-.cta-section {
-  background-color: #0052D4;
-  background-image: linear-gradient(315deg, #0052D4 0%, #4364F7 74%, #6FB1FC 100%);
-  padding: 80px 0;
+.hero-text p {
+  font-size: 1.5rem;
+  margin-top: 20px;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+  transition: opacity 0.5s ease;
 }
 
-.cta-section .btn {
-  animation: pulse 1.5s infinite;
+/* Button Styling */
+.explore-btn {
+  font-size: 1.2rem;
+  border-radius: 50px;
+  padding: 12px 40px;
+  color: white;
+  background: linear-gradient(45deg, #ff4500, #ff6347);
+  box-shadow: 0 8px 15px rgba(255, 69, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-@keyframes pulse {
-  0% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.4); }
-  50% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.8); }
-  100% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.4); }
+.explore-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(255, 69, 0, 0.7);
 }
+
+/* Cards Section */
+.card-custom {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  border: none;
+}
+
+.card-custom:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Card Icons */
+.card-custom .fa {
+  background: linear-gradient(45deg, #6a11cb, #2575fc);
+  padding: 20px;
+  border-radius: 50%;
+  color: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  margin-bottom: 15px;
+  transition: background 0.4s ease;
+}
+
+.card-custom .fa:hover {
+  background: linear-gradient(45deg, #ff8008, #ffc837);
+}
+
+/* Section Title and Buttons */
+.card-title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.6;
+}
+
+.btn-outline-primary {
+  border-color: #007bff;
+  color: #007bff;
+  padding: 10px 20px;
+  border-radius: 25px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Additional Animations */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade-in for Hero Section */
+.hero-heading, .hero-text p, .explore-btn {
+  animation: fadeInUp 1s ease forwards;
+}
+
+/* Card Hover Animations */
+.card-custom {
+  animation: fadeInUp 0.8s ease forwards;
+}
+

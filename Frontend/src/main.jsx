@@ -66,7 +66,7 @@ const router = createBrowserRouter([
         element: <Newsletter />,
       },
       {
-        path: "/send-mail",
+        path: "/donation",
         element: <SendMail />,
       },
       {

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Container, Row, Col, Form, Button, Card, Alert } from 'react-bootstrap';
 import { FaCalendarAlt, FaMapMarkerAlt, FaRegNewspaper, FaLink } from 'react-icons/fa';
 import './Event.css'; // Import custom CSS for additional styling
 
@@ -10,7 +10,7 @@ function Event() {
     location: '',
     description: '',
     gmeetLink: '',
-    eventType: 'Technical', // Add event type field
+    eventType: 'Technical',
   });
   const [showTechnicalEvents, setShowTechnicalEvents] = useState(false);
   const [showNonTechnicalEvents, setShowNonTechnicalEvents] = useState(false);
@@ -21,20 +21,25 @@ function Event() {
       date: '2024-09-20',
       location: 'Online',
       description: 'A beginner’s guide to React, including its concepts and how to build components.',
-      gmeetLink: 'https://meet.google.com/gyv-imop-zgn'
+      gmeetLink: 'https://meet.google.com/gyv-imop-zgn',
     },
     // More technical events
   ]);
   const [nonTechnicalEvents, setNonTechnicalEvents] = useState([]);
   const [showSuccess, setShowSuccess] = useState(false);
 
-  // Update form data as user types
+  useEffect(() => {
+    if (showSuccess) {
+      const timer = setTimeout(() => setShowSuccess(false), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [showSuccess]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formData.eventType === 'Technical') {
@@ -48,17 +53,16 @@ function Event() {
       location: '',
       description: '',
       gmeetLink: '',
-      eventType: 'Technical', // Reset to default
+      eventType: 'Technical',
     });
     setShowSuccess(true);
-    setTimeout(() => setShowSuccess(false), 5000);
   };
 
   return (
     <Container className="py-5">
-      <h1 className="text-center mb-4 h4">Create an Event</h1>
+      <h1 className="text-center mb-4">Create an Event</h1>
 
-      <Form onSubmit={handleSubmit} className="mb-5 p-4 bg-light shadow rounded">
+      <Form onSubmit={handleSubmit} className="mb-5 p-4 bg-light shadow-lg rounded">
         <Row>
           <Col md={6}>
             <Form.Group controlId="formTitle">
@@ -137,13 +141,28 @@ function Event() {
         </Button>
       </Form>
 
+      {showSuccess && (
+        <Alert variant="success" className="text-center success-popup">
+          Event created successfully!
+        </Alert>
+      )}
+
+      <div className="d-flex justify-content-between mb-4">
       <Button
-        onClick={() => setShowTechnicalEvents(!showTechnicalEvents)}
-        
-        className="mb-4 w-15 rounded-pill p-2 me-3"
-      >
-        {showTechnicalEvents ? 'Hide Technical Events' : 'Show Technical Events'}
-      </Button>
+  onClick={() => setShowTechnicalEvents(!showTechnicalEvents)}
+  className="btn-toggle btn-show"
+>
+  {showTechnicalEvents ? 'Hide Technical Events' : 'Show Technical Events'}
+</Button>
+
+<Button
+  onClick={() => setShowNonTechnicalEvents(!showNonTechnicalEvents)}
+  className="btn-toggle btn-hide"
+>
+  {showNonTechnicalEvents ? 'Hide Non-Technical Events' : 'Show Non-Technical Events'}
+</Button>
+
+      </div>
 
       {showTechnicalEvents && (
         <>
@@ -151,10 +170,10 @@ function Event() {
           <Row>
             {technicalEvents.map((event) => (
               <Col md={4} key={event._id} className="mb-4">
-                <Card className="border-light shadow-sm rounded">
+                <Card className="border-light shadow-sm rounded event-card">
                   <Card.Body>
                     <Card.Title className="d-flex align-items-center">
-                      <FaRegNewspaper className="me-2" />
+                      <FaRegNewspaper className="me-2 text-primary" />
                       {event.title}
                     </Card.Title>
                     <Card.Subtitle className="mb-2 text-muted d-flex align-items-center">
@@ -162,7 +181,7 @@ function Event() {
                       {new Date(event.date).toLocaleDateString()}
                     </Card.Subtitle>
                     <Card.Text className="d-flex align-items-center">
-                      <FaMapMarkerAlt className="me-2" />
+                      <FaMapMarkerAlt className="me-2 text-success" />
                       <strong>Location:</strong> {event.location}
                     </Card.Text>
                     <Card.Text>
@@ -186,13 +205,6 @@ function Event() {
           </Row>
         </>
       )}
-
-      <Button
-        onClick={() => setShowNonTechnicalEvents(!showNonTechnicalEvents)}
-        className="mb-4 w-15 rounded-pill p-2"
-      >
-        {showNonTechnicalEvents ? 'Hide Non-Technical Events' : 'Show Non-Technical Events'}
-      </Button>
 
       {showNonTechnicalEvents && (
         <>
@@ -200,10 +212,10 @@ function Event() {
           <Row>
             {nonTechnicalEvents.map((event) => (
               <Col md={4} key={event._id} className="mb-4">
-                <Card className="border-light shadow-sm rounded">
+                <Card className="border-light shadow-sm rounded event-card">
                   <Card.Body>
                     <Card.Title className="d-flex align-items-center">
-                      <FaRegNewspaper className="me-2" />
+                      <FaRegNewspaper className="me-2 text-primary" />
                       {event.title}
                     </Card.Title>
                     <Card.Subtitle className="mb-2 text-muted d-flex align-items-center">
@@ -211,7 +223,7 @@ function Event() {
                       {new Date(event.date).toLocaleDateString()}
                     </Card.Subtitle>
                     <Card.Text className="d-flex align-items-center">
-                      <FaMapMarkerAlt className="me-2" />
+                      <FaMapMarkerAlt className="me-2 text-success" />
                       <strong>Location:</strong> {event.location}
                     </Card.Text>
                     <Card.Text>
@@ -235,15 +247,9 @@ function Event() {
           </Row>
         </>
       )}
-
-      {/* Success message popup */}
-      {showSuccess && (
-        <div className="success-popup">
-          Event created successfully!
-        </div>
-      )}
     </Container>
   );
 }
 
 export default Event;
+
